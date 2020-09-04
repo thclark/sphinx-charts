@@ -6,8 +6,8 @@ Add badges and labels like this:
     `issues board <https://github.com/{{github_username}}/{{repo_name}}/issues>`_ and
     `roadmap <https://github.com/{{github_username}}/{{repo_name}}/projects/1>`_.
 
-.. image:: https://codecov.io/gh/{{codecov_username}}/{{library_name}}/branch/master/graph/badge.svg
-  :target: https://codecov.io/gh/{{codecov_username}}/{{library_name}}
+.. image:: https://codecov.io/gh/{{codecov_username}}/sphinx_charts/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/{{codecov_username}}/sphinx_charts
   :alt: Code coverage
   :align: right
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
@@ -19,7 +19,7 @@ Add badges and labels like this:
 Library Title
 =============
 
-**{{library_name}}** is a library to do stuff.
+**sphinx_charts** is a library to do stuff.
 
 .. epigraph::
    *"My Library" [m-eye-lie-brare-eeh] ~ a beautiful tagline*

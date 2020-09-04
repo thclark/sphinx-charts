@@ -4,12 +4,12 @@
 Installation
 ============
 
-**{{library_name}}** is available on `pypi <https://pypi.org/>`_, so installation into your python virtual environment is dead
+**sphinx_charts** is available on `pypi <https://pypi.org/>`_, so installation into your python virtual environment is dead
 simple:
 
 .. code-block:: py
 
-    pip install {{library_name}}
+    pip install sphinx_charts
 
 Don't have a virtual environment with pip? You probably should! ``pyenv`` is your friend. Google it.
 
@@ -19,7 +19,7 @@ Don't have a virtual environment with pip? You probably should! ``pyenv`` is you
 Compilation
 ============
 
-There is presently no need to compile **{{library_name}}**, as it's written entirely in python.
+There is presently no need to compile **sphinx_charts**, as it's written entirely in python.
 
 
 .. _third_party_library_installation:

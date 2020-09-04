@@ -1,6 +1,6 @@
 import unittest
 
-from {{library_name}} import exceptions, ExampleModule
+from sphinx_charts import exceptions, ExampleModule
 
 from .base import BaseTestCase
 

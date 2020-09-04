@@ -11,12 +11,14 @@
 # serve to show the default.
 
 import os
+import sys
 import sphinx_rtd_theme
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-# sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, os.path.abspath('../..'))
+
 
 # -- General configuration -----------------------------------------------------
 
@@ -25,15 +27,16 @@ import sphinx_rtd_theme
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-# Breate and exhale are added as recommended by:
-#   https://exhale.readthedocs.io/en/latest/usage.html#usage-quickstart-guide
 extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.doctest',
     'sphinx.ext.todo',
+    'sphinx.ext.coverage',
+    'sphinx.ext.viewcode',
     'sphinx_tabs.tabs',
     'sphinx.ext.mathjax',
     'sphinx.ext.ifconfig',
-    'breathe',
-    'exhale'
+    'sphinx_charts.charts'  #  <--- you'll need to install sphinx-charts, but for these docs it's already installed locally!
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -49,8 +52,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'{{library_name}}'
-copyright = u'{{copyright}}'
+project = u'Sphinx Charts'
+copyright = u'2020 Thomas Clark'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -91,40 +94,10 @@ exclude_patterns = []
 # show_authors = False
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
+pygments_style = None
 
 # A list of ignored prefixes for module index sorting.
 # modindex_common_prefix = []
-
-# -- Breathe and Exhale Configuration ------------------------------------------
-
-# Setup the breathe extension
-breathe_projects = {
-    "My Project": "./doxyoutput/xml"
-}
-breathe_default_project = "My Project"
-
-# Setup the exhale extension
-exhale_args = {
-    # These arguments are required
-    "containmentFolder":     "./library_api",
-    "rootFileName":          "library_root.rst",
-    "rootFileTitle":         "Library API",
-    "doxygenStripFromPath":  "../../",
-    # Suggested optional arguments
-    "createTreeView":        True,
-    # TIP: if using the sphinx-bootstrap-theme, you need
-    # "treeViewIsBootstrap": True,
-    "exhaleExecutesDoxygen": True,
-    "exhaleDoxygenStdin":    "INPUT = ../../source"
-}
-
-# Tell sphinx what the primary language being documented is
-primary_domain = 'python'
-
-# Tell sphinx what the pygments highlight language should be
-highlight_language = 'python'
-
 
 # -- Options for HTML output ---------------------------------------------------
 
@@ -143,7 +116,7 @@ html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
-html_title = "{{library_name}}: Short Description"
+html_title = "sphinx_charts: Interactive charts and graphs for sphinx"
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
 # html_short_title = None
@@ -222,8 +195,8 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', '{{library_name}}.tex', u'{{library_name}}',
-   u'{{library_author}}', 'manual'),
+  ('index', 'sphinx_charts.tex', u'sphinx_charts',
+   u'Thomas Clark', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -252,8 +225,8 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', '{{library_name}}', u'{{library_name}}',
-     [u'{{library_author}}'], 1)
+    ('index', 'sphinx_charts', u'sphinx_charts',
+     [u'Thomas Clark'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -266,8 +239,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', '{{library_name}}', u'{{library_name}}',
-   u'{{library_author}}', '{{library_name}}', '{{library_description}}',
+  ('index', 'sphinx_charts', u'sphinx_charts',
+   u'Thomas Clark', 'sphinx_charts', 'Interactive charts, graphs and figures for sphinx html documentation',
    'Miscellaneous'),
 ]
 

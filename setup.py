@@ -14,14 +14,14 @@ with open("LICENSE") as f:
     license_text = f.read()
 
 setup(
-    name="{{library_name}}",
+    name="sphinx_charts",
     version="0.0.1",
     py_modules=[],
-    install_requires=["twined >= 0.0.10"],
-    url="https://www.github.com/{{github_handle}}/{{github_repo_name}}",
+    install_requires=[],
+    url="https://www.github.com/thclark/sphinx-charts",
     license='MIT',
-    author="{{library_author}}",
-    description="{{library_description}}",
+    author="thclark",
+    description="Interactive charts, graphs and figures for Sphinx HTML docs.",
     long_description=readme_text,
     long_description_content_type="text/markdown",
     packages=find_packages(exclude=("tests", "docs")),
@@ -33,8 +33,9 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
         "Operating System :: OS Independent",
     ],
     python_requires=">=3.6",
-    keywords=["{{library_keyword_1}}", "{{library_keyword_2}}"],
+    keywords=["sphinx", "charts", "graphs", "figures", "plotly", "plot", "d3"],
 )

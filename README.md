@@ -1,28 +1,57 @@
-<!--- The following badges don't work because they're templated... uncomment when filled out
-[![PyPI version](https://badge.fury.io/py/{{library_name}}.svg)](https://badge.fury.io/py/{{library_name}})
-[![Build Status](https://travis-ci.{{com_or_org}}/{{travis_username}}/{{library_name}}.svg?branch=master)](https://travis-ci.{{com_or_org}}/{{travis_username}}/{{library_name}})
-[![codecov](https://codecov.io/gh/{{codecov_username}}/{{library_name}}/branch/master/graph/badge.svg)](https://codecov.io/gh/{{codecov_username}}/{{library_name}})
-[![Documentation Status](https://readthedocs.org/projects/{{library_name}}/badge/?version=latest)](https://{{library_name}}.readthedocs.io/en/latest/?badge=latest)
---->
-
+[![PyPI version](https://badge.fury.io/py/sphinx_charts.svg)](https://badge.fury.io/py/sphinx_charts)
+[![Build Status](https://travis-ci.com/thclark/sphinx_charts.svg?branch=master)](https://travis-ci.com/thclark/sphinx_charts)
+[![codecov](https://codecov.io/gh/thclark/sphinx_charts/branch/master/graph/badge.svg)](https://codecov.io/gh/thclark/sphinx_charts)
+[![Documentation Status](https://readthedocs.org/projects/sphinx_charts/badge/?version=latest)](https://sphinx_charts.readthedocs.io/en/latest/?badge=latest)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 [![black-girls-code](https://img.shields.io/badge/black%20girls-code-f64279.svg)](https://www.blackgirlscode.com/)
 
 
 # Python Library Template
-A github template for an up to date python library, featuring:
- - black style
- - sphinx docs with some examples and automatic build
- - pre-commit hooks
- - some example code for newer pythonistas
- - tox tests
- - travis ci + cd
- - code coverage
+
+**[Documentation is here](https://sphinx_charts.readthedocs.io).**
+
+## Quick start
+
+See the documentation above for more, but in an nutshell, add the extension to your `conf.py`:
+
+```
+extensions = [
+    ...
+    'sphinx_plotly.chart'
+]
+```
+
+Paste the following into a new file `<your_docs_src_directory>/charts/test.json`:
+```
+{
+  "data": [
+    {
+      "x": [1, 2, 3, 4, 5],
+      "y": [1, 2, 4, 8, 16]
+    }
+  ],
+  "layout": {
+    "margin": {"t": 15, "b": 30, "r": 15, "l": 35}
+  }
+}
+```
+
+Include the following directive in your `*.rst` file:
+```
+.. chart:: charts/test.json
+    :width: 400px
+    :height: 250px
+
+    This is the caption of the chart
+```
+
+... and away you go!
+
 
 ## Developer notes
 
-**Documentation for use of the library is [here](https://{{library_name}}.readthedocs.io). You don't need to pay attention to the following unless you plan to develop {{library_name}} itself.**
+**Note: You don't need to pay attention to the following unless you plan to develop sphinx_charts itself.**
 
 ### Getting started
 
@@ -58,7 +87,8 @@ pre-commit run black --all-files
 ```
 or
 ```
-pre-commit run build-docs
+# -v gives verbose output, useful for figuring out why docs won't build
+pre-commit run build-docs -v
 ```
 
 
@@ -67,11 +97,11 @@ pre-commit run build-docs
 - Please raise an issue on the board (or add your $0.02 to an existing issue) so the maintainers know
 what's happening and can advise / steer you.
 
-- Create a fork of {{library_name}}, undertake your changes on a new branch, named like *issue-84* or similar. To run tests and make commits,
+- Create a fork of {{library_name}}, undertake your changes on a new branch, (see `.pre-commit-config.yaml` for branch naming conventions). To run tests and make commits,
 you'll need to do something like:
 ```
 git clone <your_forked_repo_address>    # fetches the repo to your local machine
-cd {{library_name}}                     # move into the repo directory
+cd sphinx_charts                     # move into the repo directory
 pyenv virtualenv 3.6.9 myenv            # Makes a virtual environment for you to install the dev tools into. Use any python >= 3.6
 pyend activate myenv                    # Activates the virtual environment so you don't screw up other installations
 pip install -r requirements-dev.txt     # Installs the testing and code formatting utilities
@@ -81,7 +111,7 @@ tox                                     # Runs the tests with coverage. NB you c
 
 - Adopt a Test Driven Development approach to implementing new features or fixing bugs.
 
-- Ask the `{{library_name}}` maintainers *where* to make your pull request. We'll create a version branch, according to the
+- Ask the `sphinx_charts` maintainers *where* to make your pull request. We'll create a version branch, according to the
 roadmap, into which you can make your PR. We'll help review the changes and improve the PR.
 
 - Once checks have passed, test coverage of the new code is >=95%, documentation is updated and the Review is passed, we'll merge into the version branch.

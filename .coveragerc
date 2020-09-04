@@ -1,6 +1,6 @@
 [paths]
 source =
-    {{library_name}}/
+    sphinx_charts/
 
 [run]
 omit =
