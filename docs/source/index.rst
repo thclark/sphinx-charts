@@ -16,18 +16,20 @@ Add badges and labels like this:
   :align: right
 
 =============
-Library Title
+Sphinx Charts
 =============
 
-**sphinx_charts** is a library to do stuff.
-
 .. epigraph::
-   *"My Library" [m-eye-lie-brare-eeh] ~ a beautiful tagline*
+   *"Sphinx Charts" ~ Interactive charts, graphs and figures in Sphinx, using plot.ly and D3*
 
-Introduce the library here.
 
-Some parts of ReStructuredText (rst) are shown to help you write your docs in :ref:`a_chapter`.
+.. chart:: charts/validation_perry_marusic_12a.json
 
+    They look $\lambda$ freaking glorious 😍. This one even has latex labels and a log axis. Have you tried exporting (hover over the chart for a control panel)? That gives you an actual ``SVG``, not just a screenshot 🤯.
+
+.. chart:: charts/test_mandelbrot_plot.json
+
+    Don't even get me started. Benoit Mandelbrot? ❤️throb.
 
 
 .. _reason_for_being:
@@ -35,9 +37,26 @@ Some parts of ReStructuredText (rst) are shown to help you write your docs in :r
 Raison d'etre
 =============
 
-Insert your personal rant here...
+Because I wanted to render validation reports (for wind turbine power curves among many other things!)
+into sphinx and have the graphs set up so they can be interacted with, because it's not 1995 any more and
+``PNG`` files just don't cut it for doing proper science.
 
 
+.. _related awesome stuff:
+
+Related Awesome Stuff
+=====================
+
+Check out `cpplot <https://github.com/thclark/cpplot>`_ to plot charts like these from C++.
+
+Use `cpplot viewer <https://cpplot.herokuapp.com>`_ to quickly check your figure JSON
+(or find its source code `here <https://github.com/thclark/cpplot-viewer>`).
+
+
+.. _contents:
+
+Contents
+========
 
 .. toctree::
    :maxdepth: 2

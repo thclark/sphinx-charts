@@ -91,7 +91,6 @@ class ChartDirective(Directive):
             copyfile(src_uri, build_uri)
 
             download_name = self.options.pop("download_name", DEFAULT_DOWNLOAD_NAME)
-
             chart_node = nodes.container()
             chart_node["classes"] = [
                 "sphinx-charts-chart",
@@ -101,11 +100,16 @@ class ChartDirective(Directive):
             ]
             chart_node.replace_attr("ids", [f"sphinx-charts-chart-id-{id}"])
 
+            # Purely here to force inclusion of mathjax on pages with charts
+            math_node = nodes.math()
+            math_node["latex"] = ""
+
             placeholder_node = nodes.container()
             placeholder_node["classes"] = ["sphinx-charts-placeholder", f"sphinx-charts-placeholder-{id}"]
             placeholder_node += nodes.caption("", "Loading...")
 
             node += chart_node
+            node += math_node
             node += placeholder_node
 
             # Add optional chart caption and legend (as per figure directive)
@@ -211,6 +215,25 @@ def setup(app):
     app.add_config_value("sphinx_charts_nowarn", False, "")
     app.add_config_value("sphinx_charts_valid_builders", [], "")
     app.add_directive("chart", ChartDirective)
+
+    # app.add_html_math_renderer('mathjax')
+
+    # more information for mathjax secure url is here:
+    # https://docs.mathjax.org/en/latest/start.html#secure-access-to-the-cdn
+    # app.add_config_value('mathjax_path',
+    #                      'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?'
+    #                      'config=TeX-AMS-MML_SVG', 'html')
+    # app.add_config_value('mathjax_options', {}, 'html')
+    # app.add_config_value('mathjax_inline', [r'\(', r'\)'], 'html')
+    # app.add_config_value('mathjax_display', [r'\[', r'\]'], 'html')
+    # app.add_config_value('mathjax_config', None, 'html')
+    # app.connect('env-updated', install_mathjax)
+
+    mathjax_as_svg_path = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_SVG"
+    if "add_script_file" in dir(app):
+        app.add_script_file(mathjax_as_svg_path)
+    else:
+        app.add_javascript(mathjax_as_svg_path)
 
     for path in ["sphinx_charts/" + f for f in FILES]:
         if path.endswith(".css"):

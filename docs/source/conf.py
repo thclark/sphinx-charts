@@ -34,6 +34,7 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.viewcode',
     'sphinx_tabs.tabs',
+    'sphinx_math_dollar',
     'sphinx.ext.mathjax',
     'sphinx.ext.ifconfig',
     'sphinx_charts.charts'  #  <--- you'll need to install sphinx-charts, but for these docs it's already installed locally!
@@ -47,6 +48,15 @@ source_suffix = '.rst'
 
 # The encoding of source files.
 # source_encoding = 'utf-8-sig'
+mathjax_path = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_SVG'
+mathjax_config = {
+    "tex2jax": {
+        "inlineMath": [["$", "$"], ["\\(", "\\)"]],
+        "processEscapes": True,
+        "ignoreClass": "document",
+        "processClass": "math|output_area"
+    }
+}
 
 # The master toctree document.
 master_doc = 'index'

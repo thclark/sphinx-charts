@@ -20,7 +20,7 @@ See the documentation above for more, but in an nutshell, add the extension to y
 ```
 extensions = [
     ...
-    'sphinx_plotly.chart'
+    'sphinx_charts.charts'
 ]
 ```
 
@@ -42,8 +42,6 @@ Paste the following into a new file `<your_docs_src_directory>/charts/test.json`
 Include the following directive in your `*.rst` file:
 ```
 .. chart:: charts/test.json
-    :width: 400px
-    :height: 250px
 
     This is the caption of the chart
 ```

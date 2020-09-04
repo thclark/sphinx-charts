@@ -11,15 +11,6 @@ Here are:
     - bullet
     - points
 
-.. figure:: images/digital_twin_component_basic.svg
-    :width: 400px
-    :align: center
-    :figclass: align-center
-    :alt: Text description of the image
-
-    This is the caption of an svg file
-
-
 .. _a_section:
 
 A Section
