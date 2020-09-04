@@ -4,17 +4,4 @@
 License
 =======
 
-
-The boring bit
-==============
-
-Your license here.
-
-
-Third Party Libraries
-=====================
-
-**{{library_name}* includes or is linked against the following third party libraries:
-
-Stuff here.
-
+See our licence terms `here <https://github.com/thclark/sphinx-charts/blob/master/LICENSE>`_.

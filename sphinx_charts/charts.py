@@ -91,7 +91,6 @@ class ChartDirective(Directive):
             copyfile(src_uri, build_uri)
 
             download_name = self.options.pop("download_name", DEFAULT_DOWNLOAD_NAME)
-
             chart_node = nodes.container()
             chart_node["classes"] = [
                 "sphinx-charts-chart",
@@ -101,11 +100,17 @@ class ChartDirective(Directive):
             ]
             chart_node.replace_attr("ids", [f"sphinx-charts-chart-id-{id}"])
 
+            # This is a botch. Purely here to force inclusion of mathjax on pages with charts but without latex in the
+            # document, because it doesn't find the $$ in the chart data (which isn't part of the document tree)
+            math_node = nodes.paragraph("$$", "")
+            math_node["classes"] = ["sphinx-charts-hidden"]
+
             placeholder_node = nodes.container()
             placeholder_node["classes"] = ["sphinx-charts-placeholder", f"sphinx-charts-placeholder-{id}"]
             placeholder_node += nodes.caption("", "Loading...")
 
             node += chart_node
+            node += math_node
             node += placeholder_node
 
             # Add optional chart caption and legend (as per figure directive)
@@ -211,6 +216,15 @@ def setup(app):
     app.add_config_value("sphinx_charts_nowarn", False, "")
     app.add_config_value("sphinx_charts_valid_builders", [], "")
     app.add_directive("chart", ChartDirective)
+
+    # Add the mathjax js file above plotly
+    # TODO remove this hack once
+    #  https://stackoverflow.com/questions/63745272/ordering-of-javascript-scripts-in-head-when-using-sphinx-ext-mathjax
+    #  is answered
+    # For some reason mathjax configures itself with defaults, then the custom configuration is only changed at the end,
+    # so 'mathjax_path' specified conf.py isn't seen here. Sigh.
+    mathjax_as_svg_path = app.config["mathjax_path"].replace("TeX-AMS-MML_HTMLorMML", "TeX-AMS-MML_SVG")
+    app.add_js_file(mathjax_as_svg_path)
 
     for path in ["sphinx_charts/" + f for f in FILES]:
         if path.endswith(".css"):
