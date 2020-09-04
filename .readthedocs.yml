@@ -6,7 +6,6 @@ python:
     - requirements: docs/requirements.txt
 
 sphinx:
-  version: 2
   builder: html
   configuration: docs/source/conf.py
   fail_on_warning: true
