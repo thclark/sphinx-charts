@@ -1,29 +1,21 @@
 dist: trusty
 language: python
 python:
-  - '3.6'
-
-# Install tox and codecov
+- '3.6'
 install:
-  - pip install tox-travis
-  - pip install codecov
-
-# Use tox to run tests in the matrix of environments
+- pip install tox-travis
+- pip install codecov
 script:
 - tox -r
-
-# Push the results back to codecov
 after_success:
-  - coverage xml && codecov -f coverage.xml --commit=$TRAVIS_COMMIT
-
-# Deploy updates on master to pypi, which will only succeed if there's been a version bump
+- coverage xml && codecov -f coverage.xml --commit=$TRAVIS_COMMIT
 deploy:
   provider: pypi
   skip_cleanup: true
   skip_existing: true
   edge: true
-  user: {{pypi_username}}
+  user: thclark
   password:
-    secure: "Use travis encrypt to turn your pypi deployment password to an encrypted key and place it here"
+    secure: mCClPqz+ydJ6I5vqDq11YN6kZofaNxsg60ANHyAnPnQvsYpwWg9cnUwwnVoGwGwuj+rZYo2wzH9dg018cS9cT0LKX9U2nzgXANhnR8DPjf6MMYwTkqEBHbDCtmo2bQZyyqGgJiatgzYBjcP8gmL9TVpajrg2QI70aPgYhk/HAbkK+y00HHfwQ6QnwJS7MFhjfC84mWEaoyBe1ydUnaC77+PypHkhV8xCfkHaBDkN7GSTmrwtfdCbzvfSsp5a5lupVSTMQwNEO3zP8Lx5DsV7mo4arzaYvEmcLkU2kEh86xPQ3NCVSLpuuGVActh2L23xSrrROv6SpzVmbCuDCChFSVVQnL1egyUBFdDGkDL7311WdHl7FPh4dIKN8Oyd1tPlbP4/giHNAN8efpPI2PYl3yY+vn8/rtn8ml3YUo1uEMobvZDY7n8B3pxd9prwdioDuTFCtn0RXuJvDmi8PkwIBmC27cXE/dOnxBQ2Q2kUwKTeTr8gre9U52fFX/Bh1U4AItdqyperYhqW5igIxj58rkIR7u3IWSFS4HCS05XsSsnxTNHPAS/3alpmmdcQcZvmItnfDXUt7K519bp2X56t9gkjlABLR2UDT7DFgfEXks7MvwifwNS2+z3HadkmqWH2myEyG3CgrcYwnljvD8ky8eHYK0nnYdWFuYUgWajGKXA=
   on:
     branch: master
