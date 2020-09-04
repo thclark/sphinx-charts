@@ -7,9 +7,11 @@
 [![black-girls-code](https://img.shields.io/badge/black%20girls-code-f64279.svg)](https://www.blackgirlscode.com/)
 
 
-# Python Library Template
+#  Sphinx Charts
 
-**[Documentation is here](https://sphinx_charts.readthedocs.io).**
+Interactive charts, graphs and figures for sphinx using plotly and D3.
+
+[Documentation is here](https://sphinx_charts.readthedocs.io).
 
 ## Quick start
 
