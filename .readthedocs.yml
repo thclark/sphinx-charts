@@ -4,7 +4,7 @@ python:
   version: 3
   install:
       - method: pip
-        path: docs/requirements.txt
+        path: docs
 
 sphinx:
   builder: html
