@@ -1,0 +1,29 @@
+dist: trusty
+language: python
+python:
+  - '3.6'
+
+# Install tox and codecov
+install:
+  - pip install tox-travis
+  - pip install codecov
+
+# Use tox to run tests in the matrix of environments
+script:
+- tox -r
+
+# Push the results back to codecov
+after_success:
+  - coverage xml && codecov -f coverage.xml --commit=$TRAVIS_COMMIT
+
+# Deploy updates on master to pypi, which will only succeed if there's been a version bump
+deploy:
+  provider: pypi
+  skip_cleanup: true
+  skip_existing: true
+  edge: true
+  user: {{pypi_username}}
+  password:
+    secure: "Use travis encrypt to turn your pypi deployment password to an encrypted key and place it here"
+  on:
+    branch: master

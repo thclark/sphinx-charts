@@ -1,0 +1,13 @@
+[
+  {
+    "key": "gis",
+    "id": "some-id",
+    "uri_env_name": "SOME_ENV_VAR_NAME",
+    "some_extra_key": "should not be a problem if present"
+  },
+  {
+    "key": "some_weird_other_child",
+    "id": "some-other-id",
+    "uri_env_name": "SOME_ENV_VAR_NAME"
+  }
+]

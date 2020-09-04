@@ -1,0 +1,28 @@
+# These requirements are for development and test of the library only
+
+# Library dependencies should be specified in setup.py with as wide a
+# version range as possible, for maximum compatibility with other tools
+
+# Testing
+# ------------------------------------------------------------------------------
+tox
+pluggy
+
+# Code quality
+# ------------------------------------------------------------------------------
+flake8==3.8.3  # https://github.com/PyCQA/flake8
+flake8-isort==3.0.1  # https://github.com/gforcada/flake8-isort
+black==19.10b0  # https://github.com/ambv/black
+pre-commit  # https://github.com/pre-commit/pre-commit
+
+
+# Pre-deploy checks
+# ------------------------------------------------------------------------------
+setuptools
+wheel
+twine  # <---- nothing to do with the twined library!
+
+
+# Building documentation
+# ------------------------------------------------------------------------------
+-r docs/requirements.txt

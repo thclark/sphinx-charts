@@ -1,0 +1,7 @@
+
+# Required by the python script for building documentation
+Sphinx==1.8.3
+sphinx-rtd-theme==0.4.2
+sphinx-tabs==1.1.10
+breathe==4.11.1
+exhale==0.2.1

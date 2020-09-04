@@ -1,0 +1,7 @@
+include LICENSE
+include README.md
+include setup.py
+include setup.cfg
+include {{library_name}}/weirdly_you_have_to_specify_non_python_files_that_you_want_to_bundle_despite_recursive_include.json
+include {{library_name}}/module_data/file_required_by_module.json
+recursive-include {{library_name}} *

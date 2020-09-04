@@ -1,0 +1,9 @@
+[paths]
+source =
+    {{library_name}}/
+
+[run]
+omit =
+    env/*
+    tests/*
+    */tests/*
