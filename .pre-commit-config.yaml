@@ -1,5 +1,4 @@
 exclude: 'build|docs|node_modules|.git|.tox|dist|docs|sphinx_charts.egg-info'
-include: 'sphinx_charts'
 default_stages: [commit]
 fail_fast: true
 default_language_version:
