@@ -37,7 +37,7 @@ extensions = [
     'sphinx_math_dollar',
     'sphinx.ext.mathjax',
     'sphinx.ext.ifconfig',
-    'sphinx_charts.charts'  #  <--- you'll need to install sphinx-charts, but for these docs it's already installed locally!
+    'sphinx_charts.charts'  #  <--- you'll also need to install sphinx-charts in your requirements, but for these docs it's already installed locally!
 ]
 
 # Add any paths that contain templates here, relative to this directory.
