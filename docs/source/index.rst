@@ -25,7 +25,7 @@ Sphinx Charts
 
 .. chart:: charts/validation_perry_marusic_12a.json
 
-    They look $\lambda$ freaking glorious 😍. This one even has latex labels and a log axis. Have you tried exporting (hover over the chart for a control panel)? That gives you an actual ``SVG``, not just a screenshot 🤯.
+    They look freaking glorious 😍. This one even has latex labels and a log axis. Have you tried exporting (hover over the chart for a control panel)? That gives you an actual ``SVG``, not just a screenshot 🤯.
 
 .. chart:: charts/test_mandelbrot_plot.json
 
