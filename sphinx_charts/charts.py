@@ -218,6 +218,9 @@ def setup(app):
     app.add_directive("chart", ChartDirective)
 
     # Add the mathjax js file above plotly
+    # TODO remove this hack once
+    #  https://stackoverflow.com/questions/63745272/ordering-of-javascript-scripts-in-head-when-using-sphinx-ext-mathjax
+    #  is answered
     # For some reason mathjax configures itself with defaults, then the custom configuration is only changed at the end,
     # so 'mathjax_path' specified conf.py isn't seen here. Sigh.
     mathjax_as_svg_path = app.config["mathjax_path"].replace("TeX-AMS-MML_HTMLorMML", "TeX-AMS-MML_SVG")
