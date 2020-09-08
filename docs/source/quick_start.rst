@@ -52,7 +52,7 @@ All you need to do is save this to a json file. With python, this would look lik
    import json
 
    with open("test.json", "w+") as f:
-       json.dump(f, test_chart)
+       json.dump(test_chart, f)
 
 
 .. _using_the chart_directive:
