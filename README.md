@@ -1,6 +1,6 @@
 [![PyPI version](https://badge.fury.io/py/sphinx_charts.svg)](https://badge.fury.io/py/sphinx_charts)
-[![Build Status](https://travis-ci.com/thclark/sphinx_charts.svg?branch=master)](https://travis-ci.com/thclark/sphinx_charts)
-[![codecov](https://codecov.io/gh/thclark/sphinx_charts/branch/master/graph/badge.svg)](https://codecov.io/gh/thclark/sphinx_charts)
+[![Build Status](https://travis-ci.com/thclark/sphinx-charts.svg?branch=master)](https://travis-ci.com/thclark/sphinx-charts)
+[![codecov](https://codecov.io/gh/thclark/sphinx-charts/branch/master/graph/badge.svg)](https://codecov.io/gh/thclark/sphinx-charts)
 [![Documentation Status](https://readthedocs.org/projects/sphinx_charts/badge/?version=latest)](https://sphinx_charts.readthedocs.io/en/latest/?badge=latest)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
@@ -20,7 +20,7 @@ See the documentation above for more, but in an nutshell, add the extension to y
 ```
 extensions = [
     ...
-    'sphinx_plotly.chart'
+    'sphinx_charts.charts'
 ]
 ```
 
@@ -42,8 +42,6 @@ Paste the following into a new file `<your_docs_src_directory>/charts/test.json`
 Include the following directive in your `*.rst` file:
 ```
 .. chart:: charts/test.json
-    :width: 400px
-    :height: 250px
 
     This is the caption of the chart
 ```

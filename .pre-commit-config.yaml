@@ -37,8 +37,10 @@ repos:
       - id: build-docs
         language_version: python3
         additional_dependencies:
-          - 'scipy~=1.5.2'
-          - 'jsonschema~=3.2.0'
+          - 'Sphinx>=2,<3'
+          - 'sphinx-rtd-theme==0.5.0'
+          - 'sphinx-tabs==1.2.1'
+          - 'sphinx-math-dollar==1.1.1'
 
   - repo: https://github.com/windpioneers/pre-commit-hooks
     rev: 0.0.5
