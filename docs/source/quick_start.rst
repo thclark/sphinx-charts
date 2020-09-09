@@ -78,6 +78,11 @@ Include the following directive in your `*.rst` file:
 
        This is the caption of the chart
 
+.. ATTENTION::
+
+   The path argument, in this case ``charts/test.json``, should be **relative to your documentation source directory**
+   (not relative to the present file)
+
 And you should see something this, rendered in all its glory in your docs:
 
 .. chart:: charts/test.json

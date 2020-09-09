@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+rm -rf docs/doctrees && rm -rf docs/html && pre-commit run --verbose --all-files build-docs

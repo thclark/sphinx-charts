@@ -2,6 +2,7 @@ import os
 import posixpath
 from docutils import nodes
 from docutils.parsers.rst import Directive, directives
+from docutils.utils import relative_path
 from pkg_resources import resource_filename
 from sphinx.util import logging
 from sphinx.util.osutil import copyfile, ensuredir
@@ -73,8 +74,10 @@ class ChartDirective(Directive):
 
         # Handle the src and destination URI of the *.json asset
         uri = directives.uri(self.arguments[0].strip())
-        src_uri = os.path.join(env.app.builder.srcdir, uri)
-        build_uri = os.path.join(env.app.builder.outdir, "_charts", uri)
+        src_uri = os.path.join(env.app.builder.srcdir, uri)  # Where to get the asset during build
+        build_uri = os.path.join(env.app.builder.outdir, "_charts", uri)  # Where to put the asset during build
+        page_uri = os.path.join(env.app.builder.outdir, env.docname)  # The location of the current page
+        relative_uri = relative_path(page_uri, build_uri)  # Ultimate path of the asset relative to current page
 
         # Create the main node container and store the URI of the file which will be collected later
         node = nodes.container(id="ffs")
@@ -95,7 +98,7 @@ class ChartDirective(Directive):
             chart_node["classes"] = [
                 "sphinx-charts-chart",
                 f"sphinx-charts-chart-id-{id}",
-                f"sphinx-charts-chart-uri-_charts/{uri}",
+                f"sphinx-charts-chart-uri-{relative_uri}",
                 f"sphinx-charts-chart-dn-{download_name}",
             ]
             chart_node.replace_attr("ids", [f"sphinx-charts-chart-id-{id}"])
