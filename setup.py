@@ -16,7 +16,7 @@ with open("LICENSE") as f:
 
 setup(
     name="sphinx_charts",
-    version="0.0.3",
+    version="0.0.4",
     py_modules=[],
     url="https://www.github.com/thclark/sphinx-charts",
     license="MIT",
