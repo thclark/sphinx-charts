@@ -12,7 +12,6 @@ logger = logging.getLogger(__name__)
 
 
 FILES = [
-    #"plotly-1.55.1/plotly-1.55.1.min.js",
     "plotly/plotly-2.8.3.min.js",
     "charts.css",
     "charts.js",
