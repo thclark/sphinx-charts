@@ -55,6 +55,7 @@ jobs:
         # This seems redundant inside the test matrix but actually isn't, since different
         # dependency combinations may cause different lines of code to be hit (e.g. backports)
         uses: codecov/codecov-action@v1
+        continue-on-error: true
         with:
           file: coverage.xml
           fail_ci_if_error: true
