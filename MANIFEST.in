@@ -1,6 +1,0 @@
-include LICENSE
-include README.md
-include setup.py
-include setup.cfg
-include sphinx_charts/plotly-1.55.1/plotly-1.55.1.min.js
-recursive-include sphinx_charts *

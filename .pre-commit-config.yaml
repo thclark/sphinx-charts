@@ -1,4 +1,4 @@
-exclude: "build|node_modules|.git/|.tox|dist|sphinx_charts.egg-info|((?:[^/]*/)*)(.svg)|((?:[^/]*/)*)(.xml)"
+exclude: "build|node_modules|.git/|.tox|dist|sphinx_charts.egg-info|((?:[^/]*/)*)(.svg)|((?:[^/]*/)*)(.xml)|sphinx_charts/plotly/|sphinx_charts/extensions/"
 default_stages: [commit]
 fail_fast: true
 default_language_version:
@@ -13,11 +13,6 @@ repos:
       - id: end-of-file-fixer
       - id: no-commit-to-branch
       - id: trailing-whitespace
-
-  - repo: https://gitlab.com/bmares/check-json5
-    rev: v1.0.0
-    hooks:
-      - id: check-json5
 
   - repo: https://github.com/psf/black
     rev: 21.12b0

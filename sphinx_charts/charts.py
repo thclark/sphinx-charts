@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 FILES = [
-    "plotly-1.55.1/plotly-1.55.1.min.js",
+    "plotly/plotly-2.8.3.min.js",
     "charts.css",
     "charts.js",
 ]
@@ -46,7 +46,7 @@ def _clean_download_name_value(argument):
 
 
 class ChartDirective(Directive):
-    """ Top-level chart directive """
+    """Top-level chart directive"""
 
     has_content = True
     required_arguments = 1
@@ -61,7 +61,7 @@ class ChartDirective(Directive):
     }
 
     def run(self):
-        """ Parse a plotly chart directive """
+        """Parse a plotly chart directive"""
         self.assert_has_content()
         env = self.state.document.settings.env
 
@@ -140,7 +140,7 @@ class ChartDirective(Directive):
 
 
 class _FindChartDirectiveVisitor(nodes.NodeVisitor):
-    """ Visitor pattern than looks for a :: chart directive in a document """
+    """Visitor pattern than looks for a :: chart directive in a document"""
 
     def __init__(self, document):
         nodes.NodeVisitor.__init__(self, document)
@@ -160,12 +160,12 @@ class _FindChartDirectiveVisitor(nodes.NodeVisitor):
 
     @property
     def found_plotly_chart_directive(self):
-        """ Return whether a sphinx plotly chart directive was found """
+        """Return whether a sphinx plotly chart directive was found"""
         return self._found
 
 
 def update_context(app, pagename, templatename, context, doctree):
-    """ Remove CSS and JS asset files if no charts are used"""
+    """Remove CSS and JS asset files if no charts are used"""
     if doctree is None:
         return
     visitor = _FindChartDirectiveVisitor(doctree)
@@ -185,7 +185,7 @@ def update_context(app, pagename, templatename, context, doctree):
 
 
 def copy_assets(app, exception):
-    """ Copy asset files to the output """
+    """Copy asset files to the output"""
     if "getLogger" in dir(logging):
         log = logging.getLogger(__name__).info
         warn = logging.getLogger(__name__).warning
@@ -215,7 +215,7 @@ def copy_assets(app, exception):
 
 
 def setup(app):
-    """ Set up the plugin """
+    """Set up the plugin"""
     app.add_config_value("sphinx_charts_nowarn", False, "")
     app.add_config_value("sphinx_charts_valid_builders", [], "")
     app.add_directive("chart", ChartDirective)
@@ -239,7 +239,11 @@ def setup(app):
             if "add_script_file" in dir(app):
                 app.add_script_file(path)
             else:
-                app.add_javascript(path)
+                try:
+                    app.add_js_file(path)
+                except AttributeError:
+                    # For backward compatibility with Sphinx 2 and 3
+                    app.add_javascript(path)
 
     app.connect("html-page-context", update_context)
     app.connect("build-finished", copy_assets)

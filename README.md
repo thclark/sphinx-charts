@@ -6,10 +6,9 @@
 [![black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 [![black-girls-code](https://img.shields.io/badge/black%20girls-code-f64279.svg)](https://www.blackgirlscode.com/)
 
+# Sphinx Charts
 
-#  Sphinx Charts
-
-Interactive charts, graphs and figures for sphinx using plotly and D3.
+Interactive charts, graphs and figures for sphinx using [plotly v2.8.3](https://plotly.com/) and D3.
 
 [Documentation is here](https://sphinx_charts.readthedocs.io).
 
@@ -25,6 +24,7 @@ extensions = [
 ```
 
 Paste the following into a new file `<your_docs_src_directory>/charts/test.json`:
+
 ```
 {
   "data": [
@@ -40,6 +40,7 @@ Paste the following into a new file `<your_docs_src_directory>/charts/test.json`
 ```
 
 Include the following directive in your `*.rst` file:
+
 ```
 .. chart:: charts/test.json
 
@@ -47,7 +48,6 @@ Include the following directive in your `*.rst` file:
 ```
 
 ... and away you go!
-
 
 ## Developer notes
 
@@ -63,6 +63,7 @@ Include the following directive in your `*.rst` file:
 ### Pre-Commit
 
 You need to install pre-commit to get the hooks working. Do:
+
 ```
 pip install pre-commit
 pre-commit install
@@ -82,23 +83,26 @@ Upon failure, the commit will halt. **Re-running the commit will automatically f
 - You'll have to fix documentation yourself prior to a successful commit (there's no auto fix for that!!).
 
 You can run pre-commit hooks without making a commit, too, like:
+
 ```
 pre-commit run black --all-files
 ```
+
 or
+
 ```
 # -v gives verbose output, useful for figuring out why docs won't build
 pre-commit run build-docs -v
 ```
 
-
 ### Contributing
 
-- Please raise an issue on the board (or add your $0.02 to an existing issue) so the maintainers know
-what's happening and can advise / steer you.
+- Please raise an issue on the board (or add your \$0.02 to an existing issue) so the maintainers know
+  what's happening and can advise / steer you.
 
 - Create a fork of {{library_name}}, undertake your changes on a new branch, (see `.pre-commit-config.yaml` for branch naming conventions). To run tests and make commits,
-you'll need to do something like:
+  you'll need to do something like:
+
 ```
 git clone <your_forked_repo_address>    # fetches the repo to your local machine
 cd sphinx_charts                     # move into the repo directory
@@ -111,13 +115,12 @@ tox                                     # Runs the tests with coverage. NB you c
 
 - Adopt a Test Driven Development approach to implementing new features or fixing bugs.
 
-- Ask the `sphinx_charts` maintainers *where* to make your pull request. We'll create a version branch, according to the
-roadmap, into which you can make your PR. We'll help review the changes and improve the PR.
+- Ask the `sphinx_charts` maintainers _where_ to make your pull request. We'll create a version branch, according to the
+  roadmap, into which you can make your PR. We'll help review the changes and improve the PR.
 
 - Once checks have passed, test coverage of the new code is >=95%, documentation is updated and the Review is passed, we'll merge into the version branch.
 
 - Once all the roadmapped features for that version are done, we'll release.
-
 
 ### Release process
 
@@ -134,7 +137,6 @@ The process for creating a new release is as follows:
 9. Merge to master. Successful test, doc build, flake8 and a new version number will automatically create the release on pypi.
 10. Go to code > releases and create a new release on GitHub at the same SHA.
 
-
 ## Documents
 
 ### Building documents automatically
@@ -145,7 +147,6 @@ In fact, the way pre-commit works, you won't be allowed to make the commit unles
 this way we avoid getting broken documentation pushed to the main repository on any commit sha, so we can rely on
 builds working.
 
-
 ### Building documents manually
 
 **If you did need to build the documentation**
@@ -153,11 +154,13 @@ builds working.
 Install `doxgen`. On a mac, that's `brew install doxygen`; other systems may differ.
 
 Install sphinx and other requirements for building the docs:
+
 ```
 pip install -r docs/requirements.txt
 ```
 
 Run the build process:
+
 ```
 sphinx-build -b html docs/source docs/build
 ```
