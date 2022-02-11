@@ -1,0 +1,46 @@
+[tool.poetry]
+name = "sphinx-charts"
+version = "0.0.5"
+description = "Interactive charts, graphs and figures for Sphinx HTML docs."
+authors = ["thclark"]
+license = "MIT"
+readme = "README.md"
+classifiers=[
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Environment :: Plugins",
+    "Environment :: Web Environment",
+    "Framework :: Sphinx :: Extension",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Operating System :: OS Independent",
+    "Natural Language :: English",
+    "Topic :: Documentation :: Sphinx",
+    "Topic :: Documentation",
+    "Topic :: Software Development :: Documentation",
+    "Topic :: Text Processing",
+    "Topic :: Utilities",
+]
+repository = "https://github.com/thclark/sphinx-charts"
+keywords = ["sphinx", "charts", "python", "docs", "plotly", "graphs", "figures", "plot", "d3"]
+packages = [{ include = "sphinx_charts" },]
+
+
+[tool.poetry.dependencies]
+python = "^3.7"
+Sphinx = ">3,<5"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.0.0"
+tox = "^3.24.5"
+tox-gh-actions = "^2.9.1"
+tox-poetry = "^0.4.1"
+pre-commit = "^2.17.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
