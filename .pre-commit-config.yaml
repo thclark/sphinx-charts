@@ -1,4 +1,4 @@
-exclude: "build|node_modules|.git/|.tox|dist|sphinx_charts.egg-info|((?:[^/]*/)*)(.svg)|((?:[^/]*/)*)(.xml)"
+exclude: "build|node_modules|.git/|.tox|dist|sphinx_charts.egg-info|((?:[^/]*/)*)(.svg)|((?:[^/]*/)*)(.xml)|sphinx_charts/plotly/"
 default_stages: [commit]
 fail_fast: true
 default_language_version:
