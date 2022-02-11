@@ -8,7 +8,7 @@
 
 # Sphinx Charts
 
-Interactive charts, graphs and figures for sphinx using plotly and D3.
+Interactive charts, graphs and figures for sphinx using [plotly v2.8.3](https://plotly.com/) and D3.
 
 [Documentation is here](https://sphinx_charts.readthedocs.io).
 
@@ -97,7 +97,7 @@ pre-commit run build-docs -v
 
 ### Contributing
 
-- Please raise an issue on the board (or add your $0.02 to an existing issue) so the maintainers know
+- Please raise an issue on the board (or add your \$0.02 to an existing issue) so the maintainers know
   what's happening and can advise / steer you.
 
 - Create a fork of {{library_name}}, undertake your changes on a new branch, (see `.pre-commit-config.yaml` for branch naming conventions). To run tests and make commits,
