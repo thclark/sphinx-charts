@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 FILES = [
-    "plotly-1.55.1/plotly-1.55.1.min.js",
+    "plotly/plotly-2.8.3.min.js",
     "charts.css",
     "charts.js",
 ]
@@ -239,7 +239,11 @@ def setup(app):
             if "add_script_file" in dir(app):
                 app.add_script_file(path)
             else:
-                app.add_javascript(path)
+                try:
+                    app.add_js_file(path)
+                except AttributeError:
+                    # For backward compatibility with Sphinx 2 and 3
+                    app.add_javascript(path)
 
     app.connect("html-page-context", update_context)
     app.connect("build-finished", copy_assets)

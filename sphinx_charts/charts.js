@@ -38,13 +38,14 @@ $(document).ready(function() {
         try {
           // Generate plotly figure and remove the placeholder, or show error if we can't render
           console.log('Successfully fetched data for chart id ', id, uri);
+          window.PlotlyConfig = {MathJaxConfig: 'local'}
           Plotly.newPlot( document.getElementById(`sphinx-charts-chart-id-${id}`), fetched.data, fetched.layout, config);
           thisPlaceholder.css('display', 'none');
         }
         catch(err) {
           // Make the placeholder highlight an error
           thisPlaceholder.css('color', 'red');
-          thisPlaceholder.find('span').text('Chart data or layout does not work with Plotly.js v1.55!!!');
+          thisPlaceholder.find('span').text('Chart data or layout does not work with Plotly.js v2.8.3!!!');
         }
       })
       .fail(function() {

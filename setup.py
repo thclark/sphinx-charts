@@ -16,7 +16,7 @@ with open("LICENSE") as f:
 
 setup(
     name="sphinx_charts",
-    version="0.0.4",
+    version="0.1.0",
     py_modules=[],
     url="https://www.github.com/thclark/sphinx-charts",
     license="MIT",
@@ -25,7 +25,7 @@ setup(
     long_description=readme_text,
     long_description_content_type="text/markdown",
     packages=find_packages(exclude=("tests", "docs")),
-    install_requires=["sphinx>=2,<4", "pygments"],
+    install_requires=["sphinx>=2,<5", "pygments"],
     include_package_data=True,
     classifiers=[
         "Development Status :: 4 - Beta",
@@ -37,6 +37,7 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "Operating System :: OS Independent",
         "Natural Language :: English",
         "Topic :: Documentation :: Sphinx",
