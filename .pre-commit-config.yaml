@@ -66,7 +66,7 @@ repos:
       - id: build-docs
         language_version: python3
         additional_dependencies:
-          - "Sphinx>=2,<3"
-          - "sphinx-rtd-theme==0.5.0"
-          - "sphinx-tabs==1.2.1"
-          - "sphinx-math-dollar==1.1.1"
+          - "Sphinx>=4,<5"
+          - "sphinx-rtd-theme==1.0.0"
+          - "sphinx-tabs==3.2.0"
+          - "sphinx-math-dollar==1.2.0"
