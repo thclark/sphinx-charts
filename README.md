@@ -1,10 +1,8 @@
-[![PyPI version](https://badge.fury.io/py/sphinx_charts.svg)](https://badge.fury.io/py/sphinx_charts)
-[![Build Status](https://travis-ci.com/thclark/sphinx-charts.svg?branch=master)](https://travis-ci.com/thclark/sphinx-charts)
+[![PyPI version](https://badge.fury.io/py/sphinx-charts.svg)](https://badge.fury.io/py/sphinx-charts)
 [![codecov](https://codecov.io/gh/thclark/sphinx-charts/branch/master/graph/badge.svg)](https://codecov.io/gh/thclark/sphinx-charts)
 [![Documentation Status](https://readthedocs.org/projects/sphinx_charts/badge/?version=latest)](https://sphinx_charts.readthedocs.io/en/latest/?badge=latest)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
-[![black-girls-code](https://img.shields.io/badge/black%20girls-code-f64279.svg)](https://www.blackgirlscode.com/)
 
 # Sphinx Charts
 
