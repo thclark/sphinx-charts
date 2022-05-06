@@ -105,10 +105,14 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-# jetbrains ides
+# IDEs
 .idea/
+.vscode/
 
 # Sphinx related files
 docs/source/doxyoutput/
 docs/source/library_api/
 docs/build/
+
+# MacOS thumbnails
+*.DS_Store

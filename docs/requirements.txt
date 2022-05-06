@@ -1,6 +1,0 @@
-
-# Required by the python script for building documentation
-sphinx>=4,<5
-sphinx-rtd-theme==1.0.0
-sphinx-tabs==3.2.0
-sphinx_math_dollar==1.2.0

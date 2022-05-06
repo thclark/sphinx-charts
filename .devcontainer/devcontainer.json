@@ -1,16 +1,10 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.187.0/containers/python-3
 {
-  "name": "Sphinx Charts",
-
+  "name": "Python 3",
   "build": {
     "dockerfile": "Dockerfile",
-    "context": "..",
-    "args": {
-      "VARIANT": "3.9",
-      "INSTALL_NODE": "true",
-      "NODE_VERSION": "lts/*"
-    }
+    "context": ".."
   },
 
   // Set *default* container specific settings.json values on container create.
@@ -18,6 +12,8 @@
     "austin.mode": "Wall time",
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
+    "esbonio.server.enabled": true,
+    "esbonio.sphinx.confDir": "${workspaceFolder}/docs/source",
     "jupyter.widgetScriptSources": ["jsdelivr.com", "unpkg.com"],
     "prettier.prettierPath": "/usr/local/prettier",
     "python.formatting.autopep8Path": "/usr/local/py-utils/bin/autopep8",
@@ -43,15 +39,16 @@
     "python.linting.pylintEnabled": true,
     "python.linting.pylintPath": "/usr/local/py-utils/bin/pylint",
     "python.pythonPath": "/usr/local/bin/python",
-    "restructuredtext.confPath": "${workspaceFolder}/docs/source",
-    // Scrolling the editor is a nice idea but it doesn't work, always out of sync and impossible to manage
+    // Scrolling the editor is a nice idea but it doesn't work: always out of sync and impossible to manage
     "restructuredtext.preview.scrollEditorWithPreview": false,
     "restructuredtext.preview.scrollPreviewWithEditor": false,
+    "restructuredtext.linter.doc8.extraArgs": ["--max-line-length 180"],
     "terminal.integrated.defaultProfile.linux": "zsh"
   },
 
   // Add the IDs of extensions you want installed when the container is created.
   "extensions": [
+    "bungcip.better-toml",
     "esbenp.prettier-vscode@2.2.1",
     "irongeek.vscode-env",
     "lextudio.restructuredtext",
@@ -65,17 +62,14 @@
     "ms-vsliveshare.vsliveshare",
     "p403n1x87.austin-vscode",
     "ritwickdey.liveserver",
-    "shamanu4.django-intellisense",
-    "thebarkman.vscode-djaneiro",
     "trond-snekvik.simple-rst"
   ],
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": [80, 443, 5000, 7045, 7046, 7047, 7048, 7049, 8000, 8080],
+  "forwardPorts": [80, 443, 7045, 7046, 7047, 7048, 7049, 8080],
 
-  // Use 'postCreateCommand' to run commands after the container is created.
-  // Note: Reverting to use pip requirements until we can install private dependencies in GHA with poetry
-  "postCreateCommand": ". .devcontainer/postcreate.sh",
+  // Poetry install *with* the root, which can't be cached in the docker layers (see dockerfile)
+  "postCreateCommand": "poetry install && pre-commit install && pre-commit install -t commit-msg",
 
   // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
   "remoteUser": "vscode"
