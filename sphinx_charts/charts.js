@@ -22,10 +22,10 @@ $(document).ready(function () {
     const thisPlaceholder = $(`div.sphinx-charts-placeholder-${id}`)
 
     const config = {
-      toImageButtonOptions: {
-        format: 'svg', // one of png, svg, jpeg, webp
-        filename: dn,
-      },
+      // toImageButtonOptions: {
+      //   format: 'svg', // one of png, svg, jpeg, webp
+      //   filename: dn,
+      // },
       displaylogo: false,
       automargin: true,
       responsive: true,
@@ -37,7 +37,7 @@ $(document).ready(function () {
         try {
           // Generate plotly figure and remove the placeholder, or show error if we can't render
           console.log('Successfully fetched data for chart id ', id, uri)
-          window.PlotlyConfig = { MathJaxConfig: 'local' }
+          // window.PlotlyConfig = { MathJaxConfig: 'local' }
           Plotly.newPlot(
             document.getElementById(`sphinx-charts-chart-id-${id}`),
             fetched.data,

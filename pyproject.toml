@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sphinx-charts"
-version = "0.1.3"
+version = "0.2.0"
 description = "Interactive charts, graphs and figures for Sphinx HTML docs."
 authors = ["thclark"]
 license = "MIT"

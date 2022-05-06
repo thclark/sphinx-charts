@@ -11,6 +11,7 @@
 # serve to show the default.
 
 import os
+import re
 import sphinx_rtd_theme
 
 import sys
@@ -50,29 +51,33 @@ source_suffix = ".rst"
 
 # The encoding of source files.
 # source_encoding = 'utf-8-sig'
-mathjax_path = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_SVG"
 mathjax_config = {
     "tex2jax": {
         "inlineMath": [["$", "$"], ["\\(", "\\)"]],
         "processEscapes": True,
         "ignoreClass": "document",
         "processClass": "math|output_area",
-    }
+    },
+    "svg": {"fontCache": "global"},
 }
 
 # The master toctree document.
 master_doc = "index"
 
 # General information about the project.
-project = u"Sphinx Charts"
-copyright = u"2020 Thomas Clark"
+project = "Sphinx Charts"
+copyright = "2020-22 Thomas Clark"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 
 # The full version, including alpha/beta/rc tags.
-release = os.getenv("RELEASE_TAG", "x.y.unknown")
+p = re.compile('\nversion = "[0-9.]*[a-z0-9]"')
+with open("../../pyproject.toml", "r", encoding="utf-8") as pyproject_file:
+    pyproject_contents = pyproject_file.read()
+    result = p.search(pyproject_contents)
+    release = result.group(0).split('"')[1]
 
 # The short X.Y version.
 version = ".".join(release.split(".")[0:2])
@@ -145,7 +150,7 @@ html_favicon = "favicon.ico"
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ["_static"]
+html_static_path = []
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.
@@ -205,7 +210,7 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-    ("index", "sphinx_charts.tex", u"sphinx_charts", u"Thomas Clark", "manual"),
+    ("index", "sphinx_charts.tex", "sphinx_charts", "Thomas Clark", "manual"),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -233,7 +238,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [("index", "sphinx_charts", u"sphinx_charts", [u"Thomas Clark"], 1)]
+man_pages = [("index", "sphinx_charts", "sphinx_charts", ["Thomas Clark"], 1)]
 
 # If true, show URL addresses after external links.
 # man_show_urls = False
@@ -248,8 +253,8 @@ texinfo_documents = [
     (
         "index",
         "sphinx_charts",
-        u"sphinx_charts",
-        u"Thomas Clark",
+        "sphinx_charts",
+        "Thomas Clark",
         "sphinx_charts",
         "Interactive charts, graphs and figures for sphinx html documentation",
         "Miscellaneous",

@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 FILES = [
-    "plotly/plotly-2.8.3.min.js",
+    "plotly/plotly-2.11.1.min.js",
     "charts.css",
     "charts.js",
 ]
@@ -225,9 +225,33 @@ def setup(app):
     #  https://stackoverflow.com/questions/63745272/ordering-of-javascript-scripts-in-head-when-using-sphinx-ext-mathjax
     #  is answered
     # For some reason mathjax configures itself with defaults, then the custom configuration is only changed at the end,
-    # so 'mathjax_path' specified conf.py isn't seen here. Sigh.
-    mathjax_as_svg_path = app.config["mathjax_path"].replace("TeX-AMS-MML_HTMLorMML", "TeX-AMS-MML_SVG")
-    app.add_js_file(mathjax_as_svg_path)
+    # so any value of 'mathjax_path' specified in conf.py isn't seen here. Sigh.
+    configured_mathjax_path = getattr(app.config, "mathjax_path", None)
+    smd_defined_mathjax_path = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    svg_mathjax_path = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js"
+
+    if (configured_mathjax_path is not None) and ("TeX-AMS-MML_HTMLorMML" in configured_mathjax_path):
+        # Warn on use of v2 mathjax used by older sphinx_math_dollar versions
+        svg_mathjax_path = smd_defined_mathjax_path.replace("TeX-AMS-MML_HTMLorMML", "TeX-AMS-MML_SVG")
+        logger.warning(
+            "The mathjax path defined in your conf.py (or by your version of sphinx-math-dollar) uses an old v2 version of mathjax, incompatible with the present version of plotly. Charts featuring LaTex, or LaTeX symbols in your text, may render incorrectly."
+        )
+
+    elif (configured_mathjax_path is not None) and (configured_mathjax_path == smd_defined_mathjax_path):
+        # Account for v3 of mathjax used by newer sphinx_math_dollar versions
+        logger.info(
+            f"Plotly requires an SVG renderer for LaTeX elements, not an HTML renderer. Adding {svg_mathjax_path}."
+        )
+
+    elif configured_mathjax_path is None:
+        logger.info(f"Plotly requires mathjax. Adding {svg_mathjax_path}.")
+
+    else:
+        raise ValueError(
+            "Could not update the mathjax_path used by sphinx_math_dollar - perhaps your version of sphinx_math_dollar is incompatible with sphinx_charts? Raise an issue on the sphinx_charts github page to get help!"
+        )
+
+    app.add_js_file(svg_mathjax_path)
 
     for path in ["sphinx_charts/" + f for f in FILES]:
         if path.endswith(".css"):

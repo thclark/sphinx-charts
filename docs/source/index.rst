@@ -52,5 +52,6 @@ Contents
    self
    installation
    quick_start
+   subdir_example/subdir_example
    license
    version_history
