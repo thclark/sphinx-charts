@@ -1,4 +1,4 @@
-exclude: "build|node_modules|.git/|.tox|dist|sphinx_charts.egg-info|((?:[^/]*/)*)(.svg)|((?:[^/]*/)*)(.xml)|sphinx_charts/plotly/|sphinx_charts/extensions/"
+exclude: '.git/|.tox|dist|docs/source/_build|docs/html/|docs/doctrees/|((?:[^/]*/)*)(.svg)|((?:[^/]*/)*)(.xml)|sphinx_charts/plotly/|sphinx_charts/extensions/'
 default_stages: [commit]
 fail_fast: true
 default_language_version:
@@ -8,23 +8,28 @@ repos:
     rev: v3.1.0
     hooks:
       - id: check-added-large-files
-        args: ["--maxkb=10240"]
+        args: ['--maxkb=10240']
       - id: check-yaml
       - id: end-of-file-fixer
       - id: no-commit-to-branch
       - id: trailing-whitespace
 
+  - repo: https://gitlab.com/bmares/check-json5
+    rev: v1.0.0
+    hooks:
+      - id: check-json5
+
   - repo: https://github.com/psf/black
-    rev: 21.12b0
+    rev: 22.3.0
     hooks:
       - id: black
-        args: ["--line-length", "120"]
+        args: ['--line-length', '120']
 
   - repo: https://gitlab.com/pycqa/flake8
     rev: 3.8.1
     hooks:
       - id: flake8
-        args: ["--config=setup.cfg"]
+        args: ['--config=setup.cfg']
         language_version: python3
 
   - repo: https://github.com/timothycrosley/isort
@@ -38,17 +43,16 @@ repos:
     hooks:
       - id: check-branch-name
         args:
-          - "^main$"
-          - "^devops/([a-z][a-z0-9#]*)(-[a-z0-9#]+)*$"
-          - "^doc/([a-z][a-z0-9#]*)(-[a-z0-9#]+)*$"
-          - "^enhancement/([a-z][a-z0-9#]*)(-[a-z0-9#]+)*$"
-          - "^feature/([a-z][a-z0-9#]*)(-[a-z0-9#]+)*$"
-          - "^fix/([a-z][a-z0-9#]*)(-[a-z0-9#]+)*$"
-          - "^hotfix/([a-z][a-z0-9#]*)(-[a-z0-9#]+)*$"
-          - "^test/([a-z][a-z0-9#]*)(-[a-z0-9#]+)*$"
+          # Main branch...
+          - '^main$'
+          # Or a descriptive kebab-case branch name
+          #   which, if it includes an issue number, will
+          #   auto-link pull requests to that issue on github, eg:
+          #   my-branch-to-fix-issue-#6
+          - '^([a-z][a-z0-9#/]*)(-[a-z0-9#]+)*$'
 
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: "v2.2.1"
+    rev: 'v2.2.1'
     hooks:
       - id: prettier
 
@@ -66,7 +70,7 @@ repos:
       - id: build-docs
         language_version: python3
         additional_dependencies:
-          - "Sphinx>=4,<5"
-          - "sphinx-rtd-theme==1.0.0"
-          - "sphinx-tabs==3.2.0"
-          - "sphinx-math-dollar==1.2.0"
+          - 'Sphinx>=4,<5'
+          - 'sphinx-rtd-theme==1.0.0'
+          - 'sphinx-tabs==3.2.0'
+          - 'sphinx-math-dollar==1.2.0'
