@@ -1,4 +1,4 @@
-FROM windpioneers/gdal-python:familiar-catshark-gdal-2.4.1-python-3.9-dev
+FROM windpioneers/gdal-python:modest-heron-gdal-2.4.1-python-3.11-dev
 
 # Tell zsh where you want to store history
 #     We leave you to decide, but if you put this into a folder that's been mapped
@@ -12,17 +12,17 @@ FROM windpioneers/gdal-python:familiar-catshark-gdal-2.4.1-python-3.9-dev
 #
 ENV HISTFILE="/workspaces/sphinx-charts/.devcontainer/.zsh_history"
 
-# Switch to vscode user
-USER vscode
-WORKDIR /workspaces/sphinx-charts
+# Install pre-commit for all users
+RUN pip install pre-commit
 
 # Install poetry
-RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
-ENV PATH "/home/vscode/.poetry/bin:$PATH"
+ENV POETRY_HOME=/home/vscode/.poetry
+RUN curl -sSL https://install.python-poetry.org | python -
+ENV PATH "$POETRY_HOME/bin:$PATH"
 RUN poetry config virtualenvs.create false
 
-# Install python dependencies. Note that poetry installs any root packages by default,
-# But this is not available at this stage of caching dependencies. So we do a dependency-only install here
-# to cache the dependencies, then a full poetry install post-create to install any root packages.
-COPY pyproject.toml poetry.lock ./
-RUN poetry install --extras docs --no-ansi --no-interaction --no-root
+# Switch to vscode user
+USER vscode
+
+# Set the working directory
+WORKDIR /workspaces/sphinx-charts
