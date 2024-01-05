@@ -1,7 +1,4 @@
 
-.. attention::
-
-   Don't have a virtual environment with pip? You probably should! ``pyenv`` is your friend. Google it.
 
 .. _installation:
 
@@ -13,7 +10,11 @@ Installation
 
 .. code-block:: python
 
-   pip install sphinx_charts
+   poetry add sphinx_charts
+
+.. attention::
+
+   Still using ``pip``? ``poetry`` will be a short learning curve but saves you lots of dependency pain. It's your friend. Google it.
 
 Now, add ``sphinx_charts`` to your extensions in ``conf.py`` and you'll be ready to go:
 
