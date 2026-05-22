@@ -3,7 +3,6 @@ import posixpath
 from docutils import nodes
 from docutils.parsers.rst import Directive, directives
 from docutils.utils import relative_path
-from pkg_resources import resource_filename
 from sphinx.util import logging
 from sphinx.util.osutil import copyfile, ensuredir
 
@@ -203,9 +202,10 @@ def copy_assets(app, exception):
     log("Copying sphinx_charts plotly js and css assets")
 
     installdir = os.path.join(app.builder.outdir, "_static", "sphinx_charts")
+    sourcedir = os.path.dirname(__file__)
 
     for path in FILES:
-        source = resource_filename("sphinx_charts", path)
+        source = os.path.join(sourcedir, path)
         dest = os.path.join(installdir, path)
         destdir = os.path.dirname(dest)
         if not os.path.exists(destdir):
