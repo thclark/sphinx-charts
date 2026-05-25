@@ -1,16 +1,26 @@
-$(document).ready(function () {
-  $('div.sphinx-charts-chart').each(function () {
-    const thisChart = $(this)
+function setPlaceholderError(placeholder, message) {
+  if (!placeholder) {
+    return
+  }
 
+  placeholder.style.color = 'red'
+
+  const messageElement = placeholder.querySelector('span') || placeholder
+  messageElement.textContent = message
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('div.sphinx-charts-chart').forEach(function (chart) {
     // TODO There has just *GOT* to be a better way of getting metadata from a sphinx directive int javascript than this
     const idPrefix = 'sphinx-charts-chart-id-'
     const uriPrefix = 'sphinx-charts-chart-uri-'
     const dnPrefix = 'sphinx-charts-chart-dn-'
-    const classes = thisChart.attr('class').split(/\s+/)
+    const classes = Array.from(chart.classList)
     let id
     let uri
     let dn
-    $.each(classes, function (idx, clazz) {
+
+    classes.forEach(function (clazz) {
       if (clazz.startsWith(idPrefix)) {
         id = clazz.substring(idPrefix.length)
       } else if (clazz.startsWith(uriPrefix)) {
@@ -19,7 +29,8 @@ $(document).ready(function () {
         dn = clazz.substring(dnPrefix.length)
       }
     })
-    const thisPlaceholder = $(`div.sphinx-charts-placeholder-${id}`)
+
+    const placeholder = document.querySelector(`div.sphinx-charts-placeholder-${id}`)
 
     const config = {
       // toImageButtonOptions: {
@@ -31,9 +42,14 @@ $(document).ready(function () {
       responsive: true,
     }
 
-    // Download the JSON then run callback
-    $.getJSON(uri)
-      .done(function (fetched) {
+    fetch(uri)
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error(`Cannot load figure data from ${uri}`)
+        }
+        return response.json()
+      })
+      .then(function (fetched) {
         try {
           // Generate plotly figure and remove the placeholder, or show error if we can't render
           console.log('Successfully fetched data for chart id ', id, uri)
@@ -44,21 +60,18 @@ $(document).ready(function () {
             fetched.layout,
             config
           )
-          thisPlaceholder.css('display', 'none')
+          if (placeholder) {
+            placeholder.style.display = 'none'
+          }
         } catch (err) {
-          // Make the placeholder highlight an error
-          thisPlaceholder.css('color', 'red')
-          thisPlaceholder
-            .find('span')
-            .text(
-              'Chart data or layout does not work with Plotly.js v2.11.1!!!'
-            )
+          setPlaceholderError(
+            placeholder,
+            'Chart data or layout does not work with Plotly.js v2.11.1!!!'
+          )
         }
       })
-      .fail(function () {
-        // Make the placeholder highlight an error
-        thisPlaceholder.css('color', 'red')
-        thisPlaceholder.find('span').text('Cannot load figure data!!!')
+      .catch(function () {
+        setPlaceholderError(placeholder, 'Cannot load figure data!!!')
         console.log('Error retrieving data for chart id', id, uri)
       })
   })
