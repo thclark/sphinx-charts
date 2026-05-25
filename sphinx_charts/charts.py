@@ -19,6 +19,11 @@ FILES = [
 
 
 DEFAULT_DOWNLOAD_NAME = "chart"
+DEFAULT_SVG_MATHJAX_PATH = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js"
+CHTML_TO_SVG_MATHJAX_PATHS = {
+    "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js": DEFAULT_SVG_MATHJAX_PATH,
+    "https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js": "https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-svg.js",
+}
 
 
 def get_compatible_builders(app):
@@ -43,6 +48,40 @@ def _clean_download_name_value(argument):
     if argument.endswith(".svg"):
         return argument.replace(".svg", "")
     return directives.unchanged(argument)
+
+
+def _get_svg_mathjax_path(configured_mathjax_path):
+    if configured_mathjax_path is None:
+        logger.info(f"Plotly requires mathjax. Adding {DEFAULT_SVG_MATHJAX_PATH}.")
+        return DEFAULT_SVG_MATHJAX_PATH
+
+    if "TeX-AMS-MML_HTMLorMML" in configured_mathjax_path:
+        logger.warning(
+            "The mathjax path defined in your conf.py (or by your version of sphinx-math-dollar) uses an "
+            "old v2 version of mathjax, incompatible with the present version of plotly. Charts featuring "
+            "LaTex, or LaTeX symbols in your text, may render incorrectly."
+        )
+        return configured_mathjax_path.replace("TeX-AMS-MML_HTMLorMML", "TeX-AMS-MML_SVG")
+
+    if configured_mathjax_path in CHTML_TO_SVG_MATHJAX_PATHS:
+        svg_mathjax_path = CHTML_TO_SVG_MATHJAX_PATHS[configured_mathjax_path]
+        logger.info(f"Plotly requires an SVG renderer for LaTeX elements. Adding {svg_mathjax_path}.")
+        return svg_mathjax_path
+
+    for chtml_suffix, svg_suffix in (
+        ("tex-mml-chtml.js", "tex-mml-svg.js"),
+        ("tex-chtml.js", "tex-svg.js"),
+    ):
+        if configured_mathjax_path.endswith(chtml_suffix):
+            svg_mathjax_path = configured_mathjax_path[: -len(chtml_suffix)] + svg_suffix
+            logger.info(f"Plotly requires an SVG renderer for LaTeX elements. Adding {svg_mathjax_path}.")
+            return svg_mathjax_path
+
+    logger.warning(
+        "Could not derive an SVG MathJax renderer from the configured mathjax_path. "
+        f"Falling back to {DEFAULT_SVG_MATHJAX_PATH}."
+    )
+    return DEFAULT_SVG_MATHJAX_PATH
 
 
 class ChartDirective(Directive):
@@ -227,29 +266,7 @@ def setup(app):
     # For some reason mathjax configures itself with defaults, then the custom configuration is only changed at the end,
     # so any value of 'mathjax_path' specified in conf.py isn't seen here. Sigh.
     configured_mathjax_path = getattr(app.config, "mathjax_path", None)
-    smd_defined_mathjax_path = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
-    svg_mathjax_path = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js"
-
-    if (configured_mathjax_path is not None) and ("TeX-AMS-MML_HTMLorMML" in configured_mathjax_path):
-        # Warn on use of v2 mathjax used by older sphinx_math_dollar versions
-        svg_mathjax_path = smd_defined_mathjax_path.replace("TeX-AMS-MML_HTMLorMML", "TeX-AMS-MML_SVG")
-        logger.warning(
-            "The mathjax path defined in your conf.py (or by your version of sphinx-math-dollar) uses an old v2 version of mathjax, incompatible with the present version of plotly. Charts featuring LaTex, or LaTeX symbols in your text, may render incorrectly."
-        )
-
-    elif (configured_mathjax_path is not None) and (configured_mathjax_path == smd_defined_mathjax_path):
-        # Account for v3 of mathjax used by newer sphinx_math_dollar versions
-        logger.info(
-            f"Plotly requires an SVG renderer for LaTeX elements, not an HTML renderer. Adding {svg_mathjax_path}."
-        )
-
-    elif configured_mathjax_path is None:
-        logger.info(f"Plotly requires mathjax. Adding {svg_mathjax_path}.")
-
-    else:
-        raise ValueError(
-            "Could not update the mathjax_path used by sphinx_math_dollar - perhaps your version of sphinx_math_dollar is incompatible with sphinx_charts? Raise an issue on the sphinx_charts github page to get help!"
-        )
+    svg_mathjax_path = _get_svg_mathjax_path(configured_mathjax_path)
 
     app.add_js_file(svg_mathjax_path)
 
