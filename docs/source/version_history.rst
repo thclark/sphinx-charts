@@ -4,6 +4,13 @@
 Version History
 ===============
 
+Unreleased
+==========
+
+Bug Fixes & Minor Changes
+-------------------------
+#. Remove the default border around chart containers.
+
 Origins
 =======
 
