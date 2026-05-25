@@ -45,6 +45,14 @@ def _clean_download_name_value(argument):
     return directives.unchanged(argument)
 
 
+def _get_static_asset_filename(asset):
+    return getattr(asset, "filename", asset)
+
+
+def _remove_static_asset(path, assets):
+    return [asset for asset in assets if _get_static_asset_filename(asset) != path]
+
+
 class ChartDirective(Directive):
     """Top-level chart directive"""
 
@@ -175,13 +183,13 @@ def update_context(app, pagename, templatename, context, doctree):
         if "css_files" in context:
             context["css_files"] = context["css_files"][:]
             for path in paths:
-                if path.endswith(".css") and path in context["css_files"]:
-                    context["css_files"].remove(path)
+                if path.endswith(".css"):
+                    context["css_files"] = _remove_static_asset(path, context["css_files"])
         if "script_files" in context:
             context["script_files"] = context["script_files"][:]
             for path in paths:
-                if path.endswith(".js") and path in context["script_files"]:
-                    context["script_files"].remove(path)
+                if path.endswith(".js"):
+                    context["script_files"] = _remove_static_asset(path, context["script_files"])
 
 
 def copy_assets(app, exception):
